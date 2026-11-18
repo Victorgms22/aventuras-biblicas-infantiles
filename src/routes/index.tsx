@@ -192,7 +192,7 @@ function PackCard({ pack }: { pack: Pack }) {
           pack={pack}
           label={featured ? "¡Quiero el Mega Pack!" : "Comprar ahora"}
           variant={featured ? "gold" : "cta"}
-          pulse={featured}
+          pulse={featured === true}
         />
       </div>
     </article>
