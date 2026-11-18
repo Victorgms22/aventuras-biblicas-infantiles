@@ -28,3 +28,8 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project rules
+
+- Pack data (names, prices, Cakto checkout URLs) lives only in `src/lib/packs.ts`; every buy button goes through `BuyButton`/`openCheckout` so the Meta Pixel `ClicouComprar` event always fires before redirect.
+- The Meta Pixel base code is injected once in the `RootShell` of `src/routes/__root.tsx`; later SPA route changes send PageView from a router `onResolved` subscription. Never init the pixel in pages or components.
