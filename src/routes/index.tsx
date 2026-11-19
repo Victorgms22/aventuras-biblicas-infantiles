@@ -5,6 +5,10 @@ import heroImg from "@/assets/hero-libros.jpg";
 import basicoImg from "@/assets/pack-basico.jpg";
 import familiarImg from "@/assets/pack-familiar.jpg";
 import megaImg from "@/assets/pack-mega.jpg";
+import camilaPhoto from "@/assets/testimonio-camila.png.asset.json";
+import carolinaPhoto from "@/assets/testimonio-carolina.png.asset.json";
+import florenciaPhoto from "@/assets/testimonio-florencia.png.asset.json";
+import valentinaPhoto from "@/assets/testimonio-valentina.png.asset.json";
 import { BuyButton } from "@/components/landing/BuyButton";
 import { CountdownDigits } from "@/components/landing/OfferCountdown";
 import { formatUSD, getPack, type Pack } from "@/lib/packs";
@@ -98,8 +102,17 @@ function Hero() {
           <GuaranteeBadge className="mt-6" />
           <figure className="mt-6 max-w-md rounded-2xl bg-card p-4 shadow-soft">
             <blockquote className="text-sm italic text-foreground">“{TESTIMONIALS[1]!.quote}”</blockquote>
-            <figcaption className="mt-2 text-xs font-semibold text-muted-foreground">
-              {TESTIMONIALS[1]!.name}, {TESTIMONIALS[1]!.age} años
+            <figcaption className="mt-3 flex items-center gap-2.5">
+              <img
+                src={TESTIMONIALS[1]!.photo}
+                alt={`Foto de perfil de ${TESTIMONIALS[1]!.name}`}
+                width={72}
+                height={72}
+                className="size-9 shrink-0 rounded-full object-cover ring-2 ring-secondary"
+              />
+              <span className="text-xs font-semibold text-muted-foreground">
+                {TESTIMONIALS[1]!.name}, {TESTIMONIALS[1]!.age} años
+              </span>
             </figcaption>
           </figure>
         </div>
@@ -143,23 +156,27 @@ const TESTIMONIALS = [
   {
     name: "Camila",
     age: 29,
+    photo: camilaPhoto.url,
     quote:
       "Compré otros packs antes y me pasó que en la compu se veían lindos, pero al imprimirlos eran una decepción. Este la calidad es realmente buena.",
   },
   {
     name: "Valentina",
     age: 27,
+    photo: valentinaPhoto.url,
     quote: "El diseño está muy bien hecho y al imprimir queda hermoso. Para mí eso hace toda la diferencia.",
   },
   {
     name: "Florencia",
     age: 34,
+    photo: florenciaPhoto.url,
     quote:
       "Lo que más me sorprendió fue cómo se ven las páginas impresas. Ya había comprado otros imprimibles y no tenían la misma calidad.",
   },
   {
     name: "Carolina",
     age: 38,
+    photo: carolinaPhoto.url,
     quote:
       "He comprado otros imprimibles antes y muchas veces terminan siendo una desilusión. Este está muy bien. Son tantas hojas que no sé cuando voy a terminar de pintarlos.",
   },
@@ -180,9 +197,14 @@ function Testimonials() {
             </div>
             <blockquote className="mt-3 flex-1 italic text-foreground">“{t.quote}”</blockquote>
             <figcaption className="mt-5 flex items-center gap-3">
-              <span className="flex size-10 items-center justify-center rounded-full bg-secondary font-display font-bold text-secondary-foreground">
-                {t.name.charAt(0)}
-              </span>
+              <img
+                src={t.photo}
+                alt={`Foto de perfil de ${t.name}`}
+                width={96}
+                height={96}
+                loading="lazy"
+                className="size-12 shrink-0 rounded-full object-cover ring-2 ring-secondary"
+              />
               <span>
                 <span className="block font-semibold">{t.name}</span>
                 <span className="block text-xs text-muted-foreground">{t.age} años</span>
