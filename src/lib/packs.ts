@@ -1,3 +1,5 @@
+import { appendTrackingParams, pickTrackingParams, readStoredTrackingParams } from "@/lib/tracking-params";
+
 export type Pack = {
   id: "basico" | "familiar" | "mega";
   name: string;
@@ -49,8 +51,10 @@ export function openCheckout(url: string): void {
   if (typeof window.fbq === "function") {
     window.fbq("trackCustom", "ClicouComprar");
   }
+  const tracking = { ...readStoredTrackingParams(), ...pickTrackingParams(window.location.search) };
+  const destination = appendTrackingParams(url, tracking);
   // Small delay so the pixel request leaves before the page unloads.
   window.setTimeout(() => {
-    window.location.href = url;
+    window.location.href = destination;
   }, 200);
 }

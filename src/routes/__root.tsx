@@ -12,6 +12,7 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { captureTrackingParams } from "../lib/tracking-params";
 
 function NotFoundComponent() {
   return (
@@ -20,7 +21,7 @@ function NotFoundComponent() {
         <h1 className="text-7xl font-bold text-foreground">404</h1>
         <h2 className="mt-4 text-xl font-semibold text-foreground">Página no encontrada</h2>
         <p className="mt-2 text-sm text-muted-foreground">
-          La página que buscás no existe o fue movida.
+          La página que buscas no existe o fue movida.
         </p>
         <div className="mt-6">
           <Link
@@ -49,7 +50,7 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
           La página no cargó
         </h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          Algo salió mal. Probá recargar o volver al inicio.
+          Algo salió mal. Intenta recargar o vuelve al inicio.
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
           <button
@@ -149,6 +150,11 @@ function RootShell({ children }: { children: ReactNode }) {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const router = useRouter();
+
+  // Keep UTM / sck / fbclid / src from the landing URL for the checkout links.
+  useEffect(() => {
+    captureTrackingParams();
+  }, []);
 
   // The base code tracks the first PageView. Track later in-app route changes only.
   useEffect(() => {

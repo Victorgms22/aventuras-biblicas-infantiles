@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Check, Download, Heart, ShieldCheck, Sparkles, Star } from "lucide-react";
+import { BadgeCheck, Check, Download, Heart, Quote, ShieldCheck, Sparkles, Star } from "lucide-react";
 
 import heroImg from "@/assets/hero-libros.jpg";
 import basicoImg from "@/assets/pack-basico.jpg";
@@ -65,7 +65,7 @@ function OfferBar() {
         <div className="leading-tight">
           <p className="font-display text-base font-semibold sm:text-lg">⭐ Oferta especial por tiempo limitado</p>
           <p className="text-sm opacity-90">
-            Aprovechá el Mega Pack a <strong className="text-gold">$14.99 USD</strong> antes de que termine esta
+            Aprovecha el Mega Pack a <strong className="text-gold">$14.99 USD</strong> antes de que termine esta
             promoción <span className="line-through opacity-70">$39.99</span>
           </p>
         </div>
@@ -95,12 +95,13 @@ function Hero() {
               Ver todos los packs
             </a>
           </div>
-          <div className="mt-6 flex items-center gap-1 text-gold">
-            {Array.from({ length: 5 }).map((_, i) => (
-              <Star key={i} className="size-5 fill-current" />
-            ))}
-            <span className="ml-2 text-sm font-semibold text-muted-foreground">Amado por familias cristianas</span>
-          </div>
+          <GuaranteeBadge className="mt-6" />
+          <figure className="mt-6 max-w-md rounded-2xl bg-card p-4 shadow-soft">
+            <blockquote className="text-sm italic text-foreground">“{TESTIMONIALS[1]!.quote}”</blockquote>
+            <figcaption className="mt-2 text-xs font-semibold text-muted-foreground">
+              {TESTIMONIALS[1]!.name}, {TESTIMONIALS[1]!.age} años
+            </figcaption>
+          </figure>
         </div>
         <img
           src={heroImg}
@@ -116,7 +117,7 @@ function Hero() {
 
 const BENEFITS = [
   { icon: Heart, title: "Valores para toda la vida", text: "Fe, amor, obediencia y valentía a través de historias reales de la Biblia." },
-  { icon: Download, title: "Acceso inmediato", text: "Recibís todo en formato digital, listo para leer o imprimir cuando quieras." },
+  { icon: Download, title: "Acceso inmediato", text: "Recibes todo en formato digital, listo para leer o imprimir cuando quieras." },
   { icon: ShieldCheck, title: "Compra segura", text: "Pago protegido y entrega digital directa a tu correo." },
 ];
 
@@ -133,6 +134,93 @@ function Benefits() {
             <p className="mt-2 text-muted-foreground">{text}</p>
           </div>
         ))}
+      </div>
+    </section>
+  );
+}
+
+const TESTIMONIALS = [
+  {
+    name: "Camila",
+    age: 29,
+    quote:
+      "Compré otros packs antes y me pasó que en la compu se veían lindos, pero al imprimirlos eran una decepción. Este la calidad es realmente buena.",
+  },
+  {
+    name: "Valentina",
+    age: 27,
+    quote: "El diseño está muy bien hecho y al imprimir queda hermoso. Para mí eso hace toda la diferencia.",
+  },
+  {
+    name: "Florencia",
+    age: 34,
+    quote:
+      "Lo que más me sorprendió fue cómo se ven las páginas impresas. Ya había comprado otros imprimibles y no tenían la misma calidad.",
+  },
+  {
+    name: "Carolina",
+    age: 38,
+    quote:
+      "He comprado otros imprimibles antes y muchas veces terminan siendo una desilusión. Este está muy bien. Son tantas hojas que no sé cuando voy a terminar de pintarlos.",
+  },
+];
+
+function Testimonials() {
+  return (
+    <section className="mx-auto max-w-6xl px-4 pb-20">
+      <h2 className="text-center text-3xl font-bold sm:text-4xl">Lo que dicen quienes ya lo compraron</h2>
+      <div className="mt-10 grid gap-6 sm:grid-cols-2">
+        {TESTIMONIALS.map((t) => (
+          <figure key={t.name} className="relative flex flex-col rounded-2xl bg-card p-6 shadow-soft">
+            <Quote className="absolute right-5 top-5 size-7 text-secondary" aria-hidden />
+            <div className="flex gap-0.5 text-gold" aria-label="5 de 5 estrellas">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Star key={i} className="size-4 fill-current" />
+              ))}
+            </div>
+            <blockquote className="mt-3 flex-1 italic text-foreground">“{t.quote}”</blockquote>
+            <figcaption className="mt-5 flex items-center gap-3">
+              <span className="flex size-10 items-center justify-center rounded-full bg-secondary font-display font-bold text-secondary-foreground">
+                {t.name.charAt(0)}
+              </span>
+              <span>
+                <span className="block font-semibold">{t.name}</span>
+                <span className="block text-xs text-muted-foreground">{t.age} años</span>
+              </span>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function GuaranteeBadge({ className = "" }: { className?: string }) {
+  return (
+    <div
+      className={`inline-flex items-center gap-2 rounded-full border-2 border-cta bg-card px-4 py-2 text-sm font-bold text-foreground ${className}`}
+    >
+      <ShieldCheck className="size-5 text-cta" /> Garantía de 7 días o te devolvemos tu dinero
+    </div>
+  );
+}
+
+function Guarantee() {
+  return (
+    <section className="mx-auto max-w-4xl px-4 py-16">
+      <div className="flex flex-col items-center gap-6 rounded-3xl border-4 border-cta bg-card p-8 text-center shadow-soft sm:flex-row sm:text-left">
+        <div className="flex size-28 shrink-0 flex-col items-center justify-center rounded-full bg-cta text-cta-foreground">
+          <BadgeCheck className="size-8" />
+          <span className="font-display text-3xl font-bold leading-none">7</span>
+          <span className="text-xs font-bold uppercase">días</span>
+        </div>
+        <div>
+          <h2 className="text-2xl font-bold sm:text-3xl">Garantía de 7 días</h2>
+          <p className="mt-2 text-lg text-muted-foreground">
+            Si por cualquier motivo los materiales no te convencen, tienes 7 días para pedir el reembolso del
+            100% de tu dinero. Sin preguntas y sin complicaciones.
+          </p>
+        </div>
       </div>
     </section>
   );
@@ -187,13 +275,16 @@ function PackCard({ pack }: { pack: Pack }) {
           <CountdownDigits />
         </div>
       )}
-      <div className="mt-5 [&_a]:w-full">
+      <div className="mt-5 flex flex-col items-center gap-3 [&_a]:w-full">
         <BuyButton
           pack={pack}
           label={featured ? "¡Quiero el Mega Pack!" : "Comprar ahora"}
           variant={featured ? "gold" : "cta"}
           pulse={featured === true}
         />
+        <p className="flex items-center gap-1.5 text-sm font-semibold text-muted-foreground">
+          <ShieldCheck className="size-4 text-cta" /> Garantía de 7 días
+        </p>
       </div>
     </article>
   );
@@ -204,7 +295,7 @@ function Packs() {
     <section id="packs" className="bg-cream py-20">
       <div className="mx-auto max-w-6xl px-4">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-bold sm:text-4xl">Elegí el pack ideal para tu familia</h2>
+          <h2 className="text-3xl font-bold sm:text-4xl">Elige el pack ideal para tu familia</h2>
           <p className="mt-3 text-lg text-muted-foreground">Pago único. Acceso inmediato. Para siempre.</p>
         </div>
         <div className="mt-14 grid items-start gap-8 md:grid-cols-3">
@@ -218,9 +309,9 @@ function Packs() {
 }
 
 const FAQ = [
-  { q: "¿Cómo recibo los materiales?", a: "Después del pago recibís el acceso por correo electrónico para descargar todo al instante." },
+  { q: "¿Cómo recibo los materiales?", a: "Después del pago recibes el acceso por correo electrónico para descargar todo al instante." },
   { q: "¿Para qué edades son?", a: "Están pensados para niños de 3 a 10 años, ideales para leer juntos en familia." },
-  { q: "¿Puedo imprimirlos?", a: "Sí, podés imprimirlos en casa todas las veces que quieras." },
+  { q: "¿Puedo imprimirlos?", a: "Sí, puedes imprimirlos en casa todas las veces que quieras." },
 ];
 
 function Faq() {
@@ -249,6 +340,9 @@ function FinalCta() {
         </p>
         <CountdownDigits />
         <BuyButton pack={mega} label="¡Sí, quiero el Mega Pack!" variant="gold" pulse />
+        <p className="flex items-center gap-2 text-sm font-semibold">
+          <ShieldCheck className="size-5 text-gold" /> Compra sin riesgo: garantía de 7 días
+        </p>
       </div>
     </section>
   );
@@ -261,7 +355,9 @@ function Index() {
       <main>
         <Hero />
         <Benefits />
+        <Testimonials />
         <Packs />
+        <Guarantee />
         <Faq />
         <FinalCta />
       </main>
